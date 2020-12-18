@@ -38,7 +38,6 @@ export default {
   methods:{
     returnLogin(){this.$router.push('/Login');},
     register: function () {
-      console.log(12345)
       var postdata={}
       if(this.password!=this.password2)
         this.error_code="两次输入的密码不一致"

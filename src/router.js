@@ -5,6 +5,7 @@ import VueRouter from "vue-router";
 import Login from "@/components/Login";
 import Register from "@/components/Register";
 import Index from "@/components/Index";
+import ResetPassword from "@/components/ResetPassword";
 // 要告诉 vue 使用 vueRouter
 Vue.use(VueRouter);
 
@@ -21,6 +22,10 @@ const routes = [
         path:"/Register",
         component: Register
     },
+    {
+        path:"/ResetPassword",
+        component: ResetPassword
+    }
 ]
 
 var router =  new VueRouter({

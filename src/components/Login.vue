@@ -10,7 +10,7 @@
         <el-button type="primary" @click="login">登录</el-button>
         <br>
         <div id="bottom_button">
-          <el-button type="text">忘记密码</el-button>
+          <el-button type="text" @click="resetPassword">忘记密码</el-button>
           <el-button type="text" @click="register">注册新账户</el-button>
         </div>
     </div>
@@ -37,6 +37,7 @@ export default {
       this.$axios.post('/login',postdata).then((response) => {
         console.log(response)
         if(response.data=="OK"){
+          document.cookie="account_id="+this.account_id;
           this.$router.push('/Index');
         }
         else{
@@ -44,7 +45,10 @@ export default {
         }
       }).catch((error) => {
           console.log(error)
-    })
+      })
+    },
+    resetPassword(){
+      this.$router.push('/ResetPassword');
     }
   }
   ,

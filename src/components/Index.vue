@@ -2,7 +2,7 @@
   <div class="hello">
     <el-container style="height: 80%; border: 1px solid #eee">
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['1', '3']">
+        <el-menu :default-openeds="['1','2','3']" :default-active=this.selectIndex @select="handleSelect">
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-message"></i>数据爬取</template>
             <el-menu-item-group>
@@ -32,14 +32,14 @@
           <el-dropdown>
             <i class="el-icon-setting" style="margin-right: 15px"></i>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>注销</el-dropdown-item>
+              <el-dropdown-item @click.native="logout">注销</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <span>用户</span>
         </el-header>
 
         <el-main>
-
+          <miner-config v-if="mode=='1-1'"></miner-config>
         </el-main>
       </el-container>
     </el-container>
@@ -47,10 +47,32 @@
 </template>
 
 <script>
+import MinerConfig from "@/components/MinerConfig";
 export default {
   name: 'Index',
+  components: {MinerConfig},
   props: {
     msg: String
+  },
+  data(){
+    return{
+      selectIndex:'1',
+      mode:'0'
+    }
+  },
+  methods:{
+    logout(){
+      console.log("logout")
+      document.cookie="account_id=";
+      this.$router.push('/Login')
+    },
+    handleSelect(key, keyPath) {
+      this.mode=keyPath[1]
+    },
+    show1()
+    {
+      console.log(this.mode)
+    }
   }
 }
 </script>
