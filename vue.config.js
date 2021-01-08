@@ -16,6 +16,14 @@ module.exports = {
             '/minerconfig':{
                 target: 'http://localhost:8888',
                 changeOrigin: true
+            },
+            '/search2':{
+                target: 'http://localhost:8888',
+                changeOrigin: true
+            },
+            '/remove':{
+                target: 'http://localhost:8888',
+                changeOrigin: true
             }
         },
     }

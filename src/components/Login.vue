@@ -36,8 +36,9 @@ export default {
       let postdata={account_id:this.account_id,password:this.password}
       this.$axios.post('/login',postdata).then((response) => {
         console.log(response)
-        if(response.data=="OK"){
+        if(response.data.status=="OK"){
           document.cookie="account_id="+this.account_id;
+          document.cookie="user_name="+response.data.user_name;
           this.$router.push('/Index');
         }
         else{
