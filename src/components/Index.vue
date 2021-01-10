@@ -16,12 +16,12 @@
               <el-menu-item index="2-1">新建分析任务</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <!--<el-submenu index="3">
+          <el-submenu index="3">
             <template slot="title"><i class="el-icon-setting"></i>账户管理</template>
             <el-menu-item-group>
-              <el-menu-item index="3-1">修改个人信息</el-menu-item>
+              <el-menu-item index="3-1">修改密码</el-menu-item>
             </el-menu-item-group>
-          </el-submenu>-->
+          </el-submenu>
         </el-menu>
       </el-aside>
 
@@ -45,6 +45,9 @@
         <el-main v-if="mode=='2-1'">
           <analyze-charts :res_list="reslist"></analyze-charts>
         </el-main>
+        <el-main v-if="mode=='3-1'">
+          <passwordreset2></passwordreset2>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -54,9 +57,10 @@
 import analyzeCharts from "@/components/analyzeCharts";
 import MinerConfig from "@/components/MinerConfig";
 import MinerHistroy from "@/components/MinerHistroy";
+import passwordreset2 from "@/components/passwordreset2";
 export default {
   name: 'Index',
-  components: {MinerConfig,MinerHistroy,analyzeCharts},
+  components: {MinerConfig,MinerHistroy,analyzeCharts,passwordreset2},
   props: {
     msg: String
   },

@@ -81,6 +81,7 @@ name: "MinerHistroy",
     return {
       dialogVisible: false,
       datetime:"",
+      showlist:[],
       diatarget_url:"",
       target_url:"",
       diatarget_data:[],
@@ -139,7 +140,7 @@ name: "MinerHistroy",
           .catch(()=> {});
     },
     trans(str){
-      return unescape(str.replace(/\\/g, "%"))
+      return str.replace(/,/g,'，')
     },
     deleteRow(index, rows) {
       rows.splice(index, 1);
@@ -159,15 +160,15 @@ name: "MinerHistroy",
         //要导出的json数据
         let jsonData= this.res_list
         //列标题，逗号隔开，每一个逗号就是隔开一个单元格
+      console.log("Json shuju")
+      console.log(this.res_list)
         let str = `url,爬取时间,数据\n`;
         //增加\t为了不让表格显示科学计数法或者其他格式
         for(let i = 0 ; i < jsonData.length ; i++ ){
-          /*for(let item in jsonData[i]){
-            str+=`${jsonData[i][item] + '\t'},`;
-          }*/
           str+=`${jsonData[i]['url'] + '\t'},`;
           str+=`${jsonData[i]['start_time'] + '\t'},`;
-          str+=`${this.trans(jsonData[i]['data']) + '\t'},`;
+          console.log(JSON.stringify( jsonData[i].data))
+          str+=`${this.trans(JSON.stringify( jsonData[i].data)) + '\t'},`;
           str+='\n';
         }
         //encodeURIComponent解决中文乱码
@@ -194,6 +195,7 @@ name: "MinerHistroy",
         console.log(response)
         this.res_list.splice(0,this.res_list.length)
         console.log(response.data)
+        this.showlist=response.data.data
         response.data.data.forEach(i=>{
           this.res_list.push(i)
         })

@@ -33,6 +33,19 @@
       </el-select>
     </el-input>
     <el-button type="primary" style="" @click="add_url">添加网址</el-button>
+    <el-button type="primary" style="" @click="site_dialog=true">添加母网站</el-button>
+      <el-dialog title="添加网站爬取规则" :visible.sync="site_dialog">
+        <div slot="footer" class="dialog-footer">
+          <el-input placeholder="请输入域名" v-model="domain"></el-input>
+          <el-input placeholder="请输入网页前缀" v-model="prefix"></el-input>
+          <el-input placeholder="匹配" v-model="rehtml"></el-input>
+          <el-input placeholder="格式模板" v-model="template"></el-input>
+          <el-input placeholder="最大页数" v-model="maxpage"></el-input>
+          <el-input placeholder="第一页格式" v-model="firstpage"></el-input>
+          <el-button @click="site_dialog = false">取 消</el-button>
+          <el-button type="primary" @click="submit_site">确 定</el-button>
+        </div>
+      </el-dialog>
     <el-upload
         style="margin-top: 20px"
         class="upload-demo"
@@ -155,7 +168,14 @@ name: "MinerConfig",
       url_list:[],
       uploadtime:0,
       table:"2",
-      start_time:""
+      start_time:"",
+      site_dialog:false,
+      domain:"",
+      prefix:"",
+      rehtml:"",
+      template:"",
+      maxpage:"",
+      firstpage:"",
     }
   },
   watch:{
@@ -180,6 +200,26 @@ name: "MinerConfig",
     },
     show(){
       console.log(this.header)
+    },
+    submit_site(){
+      let postdata={
+        domain:this.domain,
+        prefix:this.prefix,
+        rehtml:this.rehtml,
+        template:this.template,
+        maxpage:this.maxpage,
+        firstpage:this.firstpage
+      }
+      this.$axios.post('/site',postdata).then((response) => {
+        console.log(response)
+        let data=response.data.data
+        data.forEach(i=>{
+          this.url_list.push({"method":"get","url":i})
+        })
+        this.site_dialog=false
+      }).catch((error) => {
+        console.log(error)
+      })
     },
     add_url(){
       var method='get';

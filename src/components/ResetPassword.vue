@@ -1,5 +1,5 @@
 <template>
-  <div id="register_card" :span=4>
+  <div id="register_card" :span=4 style="width: 80%">
     账号：<el-input v-model="account_id" placeholder="请输入账号"></el-input>
     <br>
     密码：<el-input v-model="password" placeholder="请输入新密码" show-password></el-input>
@@ -22,16 +22,13 @@ export default {
     }
   },
   methods:{
-    returnLogin(){
-      this.$router.push('/Login');
-    },
     resetPassword(){
       let postdata={}
       postdata={account_id:this.account_id,new_password:this.password}
       this.$axios.post('/resetpassword',postdata).then((response) => {
         console.log(response)
         if(response.data=="OK"){
-          this.$router.push('/login');
+          console.log(response)
         }
         else{
           this.error_code=response.data

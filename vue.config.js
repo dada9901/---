@@ -24,6 +24,10 @@ module.exports = {
             '/remove':{
                 target: 'http://localhost:8888',
                 changeOrigin: true
+            },
+            '/site':{
+                target: 'http://localhost:8888',
+                changeOrigin: true
             }
         },
     }
